@@ -1,0 +1,18 @@
+---
+# tasks file for /home/ec2-user/ansiblenginx/roles/webserver
+- name: Update yum cache
+  yum:
+    name: '*'
+    state: latest
+- name: Install Nginx
+  yum:
+    name: nginx
+    state: present
+      - name: add index page
+      template:
+      src: index.html.j2
+      dest: /usr/share/nginx/html/index.html
+- name: start nginx
+  service:
+    name: nginx
+    state: started
